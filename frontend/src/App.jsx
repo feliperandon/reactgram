@@ -1,5 +1,23 @@
-function App() {
-  return <h1 className="">ReactGram</h1>;
-}
+// Router
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+// Pages
+import Home from "./pages/Home";
+import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
+
+const App = () => {
+  return (
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+};
 
 export default App;
