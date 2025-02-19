@@ -3,6 +3,8 @@
 
 @theme {
   --font-roboto: "Roboto", "sans-serif";
+
+  --width-20: 20%;
 }
 
 body {
