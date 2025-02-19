@@ -22,16 +22,22 @@ const Navbar = () => {
           className="pl-10 border-none rounded w-full m-0"
         />
       </form>
-      <ul id="nav-links" className="flex items-center">
-        <NavLink to="/" className="mr-4">
-          <BsHouseDoorFill className="text-2xl" />
-        </NavLink>
-        <NavLink to="/login" className="mr-4">
-          Entrar
-        </NavLink>
-        <NavLink to="/register" className="mr-4">
-          Cadastrar
-        </NavLink>
+      <ul id="nav-links" className="flex items-center justify-center">
+        <li>
+          <NavLink to="/" className="mr-4 flex items-center justify-center">
+            <BsHouseDoorFill className="text-2xl" />
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/login" className="mr-4">
+            Entrar
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/register" className="mr-4">
+            Cadastrar
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );
