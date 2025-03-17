@@ -9,17 +9,14 @@ import {
 
 const Navbar = () => {
   return (
-    <nav
-      id="nav"
-      className="flex justify-between items-center bg-black border-b-1 border-gray-800 p-4"
-    >
+    <nav className="flex justify-between items-center bg-black border-b-1 border-gray-800 p-4">
       <Link to="/">ReactGram</Link>
       <form className="relative w-20">
-        <BsSearch className="absolute top-2 left-2.5" />
+        <BsSearch className="absolute top-3 left-2.5" />
         <input
           type="text"
           placeholder="Pesquisar"
-          className="pl-10 border-none rounded w-full m-0"
+          className="pl-10 py-2 border-none rounded w-full m-0 bg-[#3b3b3b]"
         />
       </form>
       <ul id="nav-links" className="flex items-center justify-center">

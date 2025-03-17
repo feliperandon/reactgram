@@ -8,7 +8,60 @@
 }
 
 body {
-  @apply font-poppins;
-  background-color: #121212;
-  color: #fafafa;
+  @apply font-poppins bg-[#121212] text-white;
+}
+
+a {
+  @apply text-white no-underline;
+}
+
+.active {
+  @apply font-bold;
+}
+
+form {
+  @apply flex flex-col;
+}
+
+label {
+  @apply flex flex-col text-left;
+}
+
+label span {
+  @apply font-bold mb-2 text-[#aaa] text-xs;
+}
+
+input {
+  @apply bg-[#3b3b3b] text-[#aaa] border rounded-xs border-[#555]  outline-none mb-2;
+}
+
+input::placeholder {
+  @apply text-[#aaa];
+}
+
+.btn,
+button,
+input[type="submit"] {
+  @apply bg-[#0094f6] text-white border-none rounded-xs pl-2.5 pr-2 font-bold cursor-pointer opacity-80 text-base;
+}
+
+input [type="submit"] {
+  @apply mt-[1em];
+}
+
+input:disabled {
+  @apply cursor-not-allowed bg-black;
+}
+
+button:hover,
+input[type="submit"]:hover {
+  @apply opacity-100;
+}
+
+.cancel-btn {
+  @apply bg-[#CCC];
+}
+
+.hide {
+  @apply hidden;
 }
