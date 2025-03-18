@@ -5,8 +5,22 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const Register = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const user = {
+      name,
+      email,
+      password,
+      confirmPassword,
+    };
+
+    console.log(user);
   };
 
   return (
@@ -19,12 +33,32 @@ const Register = () => {
         className="pb-6 mb-6 border-b border-[#363636]"
         onSubmit={handleSubmit}
       >
-        <input type="text" placeholder="Nome" className="px-2.5 py-2" />
-        <input type="email" placeholder="Email" className="px-2.5 py-2" />
-        <input type="password" placeholder="Senha" className="px-2.5 py-2" />
+        <input
+          type="text"
+          placeholder="Nome"
+          onChange={(e) => setName(e.target.value)}
+          value={name || ""}
+          className="px-2.5 py-2"
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email || ""}
+          className="px-2.5 py-2"
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password || ""}
+          className="px-2.5 py-2"
+        />
         <input
           type="password"
           placeholder="Confirme a senha"
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          value={confirmPassword || ""}
           className="px-2.5 py-2"
         />
         <input type="submit" value="Cadastrar" className="px-2.5 py-2 mt-5" />
