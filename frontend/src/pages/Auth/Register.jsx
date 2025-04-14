@@ -1,5 +1,6 @@
 // Components
 import { Link } from "react-router-dom";
+import Message from "../../components/Message";
 
 // Hooks
 import { useState, useEffect } from "react";
@@ -80,10 +81,21 @@ const Register = () => {
           value={confirmPassword || ""}
           className="px-2.5 py-2"
         />
-        <input type="submit" value="Cadastrar" className="px-2.5 py-2 mt-5" />
+        {!loading && (
+          <input type="submit" value="Cadastrar" className="px-2.5 py-2 mt-5" />
+        )}
+        {loading && (
+          <input
+            type="submit"
+            value="Aguarde..."
+            disabled
+            className="px-2.5 py-2 mt-5"
+          />
+        )}
+        {error && <Message msg={error} type="error" />}
       </form>
       <p className="text-center">
-        Já tem conta?{" "}
+        Já tem conta?
         <Link to="/login" className="font-bold text-[#0094f6]">
           Clique aqui.
         </Link>
