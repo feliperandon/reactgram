@@ -36,7 +36,7 @@ const App = () => {
             />
             <Route
               path="/register"
-              element={!auth ? <Navigate /> : <Navigate to="/" />}
+              element={!auth ? <Register /> : <Navigate to="/" />}
             />
           </Routes>
         </div>
