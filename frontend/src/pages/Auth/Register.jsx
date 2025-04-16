@@ -29,16 +29,10 @@ const Register = () => {
       confirmPassword,
     };
 
-    console.log(user);
-
     dispatch(register(user));
   };
 
   // Clean all auth states
-  useEffect(() => {
-    dispatch(reset());
-  }, [dispatch]);
-  // clean all auth states
   useEffect(() => {
     dispatch(reset());
   }, [dispatch]);
@@ -97,7 +91,7 @@ const Register = () => {
       <p className="text-center">
         Já tem conta?
         <Link to="/login" className="font-bold text-[#0094f6]">
-          Clique aqui.
+          <span> Clique aqui.</span>
         </Link>
       </p>
     </div>
