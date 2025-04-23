@@ -40,6 +40,16 @@ const EditProfile = () => {
     e.preventDefault();
   };
 
+  const handleFile = (e) => {
+    // image preview
+    const image = e.target.files[0];
+
+    setPreviewImage(image);
+
+    // Update image state
+    setProfileImage(image);
+  };
+
   return (
     <div className="bg-black border border-[#363636] py-6 px-8 max-w-[40%] my-8 mx-auto text-center">
       <h2 className="text-center text-[2.1em] mt-0 font-bold">
@@ -48,7 +58,17 @@ const EditProfile = () => {
       <p className="text-[#CCC]">
         Adicione uma imagem de perfil e conte mais sobre você...
       </p>
-      {/* image preview */}
+      {(user.profileImage || previewImage) && (
+        <img
+          src={
+            previewImage
+              ? URL.createObjectURL(previewImage)
+              : `${uploads}/users/${user.profileImage}`
+          }
+          className="w-36 h-36 rounded-full m-auto my-5 object-cover object-center"
+          alt={user.name}
+        />
+      )}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -68,11 +88,12 @@ const EditProfile = () => {
           <span>Imagem do Perfil:</span>
           <input
             type="file"
-            className="block w-full border cursor-pointer border-gray-200 text-sm focus:z-10 focus:border-[#0094f6] disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400
+            onChange={handleFile}
+            className="block w-full border cursor-pointer border-gray-200 text-sm focus:z-10 focus:border-[#0094f6] disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white
     file:bg-gray-50 file:border-0
     file:me-4
     file:py-3 file:px-4
-    dark:file:bg-neutral-700 dark:file:text-neutral-400"
+    dark:file:bg-[#0094f6] dark:opacity-80 dark:hover:opacity-100 dark:file:text-white"
           />
         </label>
         <label>
