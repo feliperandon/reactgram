@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 // Redux
-import { profile, resetMessage } from "../../slices/userSlice";
+import { updateProfile, resetMessage } from "../../slices/userSlice";
 
 // Components
 import Message from "../../components/Message";
@@ -36,8 +36,40 @@ const EditProfile = () => {
     }
   }, [user]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Gather user data from states
+    const userData = {
+      name,
+    };
+
+    if (profileImage) {
+      userData.profileImage = profileImage;
+    }
+
+    if (bio) {
+      userData.bio = bio;
+    }
+
+    if (password) {
+      userData.password = password;
+    }
+
+    // build form data
+    const formData = new FormData();
+
+    const userFormData = Object.keys(userData).forEach((key) =>
+      formData.append(key, userData[key])
+    );
+
+    formData.append("user", userFormData);
+
+    await dispatch(updateProfile(formData));
+
+    setTimeout(() => {
+      dispatch(resetMessage());
+    }, 2000);
   };
 
   const handleFile = (e) => {
@@ -116,7 +148,12 @@ const EditProfile = () => {
             className="px-2.5 py-2"
           />
         </label>
-        <input type="submit" value="Atualizar" className="px-2.5 py-2 mt-5" />
+        {!loading && (
+          <input type="submit" value="Atualizar" className="px-2.5 py-2 mt-5" />
+        )}
+        {loading && <input type="submit" disabled value="Aguarde..." />}
+        {error && <Message msg={error} type="error" />}
+        {message && <Message msg={message} type="success" />}
       </form>
     </div>
   );
