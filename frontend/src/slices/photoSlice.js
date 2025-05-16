@@ -218,16 +218,32 @@ export const photoSlice = createSlice({
         state.error = null;
 
         if (state.photo.likes) {
+          if (state.photo.likes.includes(action.payload.userId)) {
+            const index = state.photo.likes.findIndex(
+              (item) => item === action.payload.userId
+            );
+
+            state.photo.likes.splice(index, 1);
+            state.message = action.payload.message;
+            return;
+          }
           state.photo.likes.push(action.payload.userId);
+          state.message = action.payload.message;
         }
 
         state.photos.map((photo) => {
-          if (photo._id === action.payload.photo.photoId) {
+          if (photo._id === action.payload.photoId) {
+            if (photo.likes.includes(action.payload.userId)) {
+              const index = photo.likes.findIndex(
+                (item) => item === action.payload.userId
+              );
+              return photo.likes.splice(index, 1);
+            }
+
             return photo.likes.push(action.payload.userId);
           }
           return photo;
         });
-        state.message = action.payload.message;
       })
       .addCase(like.rejected, (state, action) => {
         state.loading = false;
