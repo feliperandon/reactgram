@@ -105,6 +105,26 @@ export const like = createAsyncThunk("photo/like", async (id, thunkAPI) => {
   return data;
 });
 
+// add comment to a photo
+
+export const comment = createAsyncThunk(
+  "photo/comment",
+  async (photoData, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+
+    const data = await comment.like(
+      { comment: photoData.comment },
+      photoData.id,
+      token
+    );
+    if (data.errors) {
+      return thunkAPI.rejectWithValue(data.errors[0]);
+    }
+
+    return data;
+  }
+);
+
 export const photoSlice = createSlice({
   name: "photo",
   initialState,
@@ -197,15 +217,44 @@ export const photoSlice = createSlice({
         state.error = null;
 
         if (state.photo.likes) {
+          if (state.photo.likes.includes(action.payload.userId)) {
+            const index = state.photo.likes.findIndex(
+              (item) => item === action.payload.userId
+            );
+
+            state.photo.likes.splice(index, 1);
+            state.message = action.payload.message;
+            return;
+          }
           state.photo.likes.push(action.payload.userId);
+          state.message = action.payload.message;
         }
 
         state.photos.map((photo) => {
-          if (photo._id === action.payload.photo.photoId) {
+          if (photo._id === action.payload.photoId) {
+            if (photo.likes.includes(action.payload.userId)) {
+              const index = photo.likes.findIndex(
+                (item) => item === action.payload.userId
+              );
+              return photo.likes.splice(index, 1);
+            }
+
             return photo.likes.push(action.payload.userId);
           }
           return photo;
         });
+      })
+      .addCase(like.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(like.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.error = null;
+
+        state.photo.comments.push(action.payload.comment);
+
         state.message = action.payload.message;
       })
       .addCase(like.rejected, (state, action) => {
