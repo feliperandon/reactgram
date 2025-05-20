@@ -20,6 +20,8 @@ const Navbar = () => {
   const { auth } = useAuth();
   const { user } = useSelector((state) => state.auth);
 
+  const [query, setQuery] = useState("");
+
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -31,13 +33,22 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    if (query) {
+      return navigate(`/search?q=${query}`);
+    }
+  };
+
   return (
     <nav className="flex justify-between items-center bg-black border-b-1 border-gray-800 p-4">
       <Link to="/">ReactGram</Link>
-      <form className="relative w-20">
+      <form className="relative w-20" onSubmit={handleSearch}>
         <BsSearch className="absolute top-3 left-2.5" />
         <input
           type="text"
+          onChange={(e) => setQuery(e.target.value)}
           placeholder="Pesquisar"
           className="pl-10 py-2 border-none rounded w-full m-0 bg-[#3b3b3b]"
         />
